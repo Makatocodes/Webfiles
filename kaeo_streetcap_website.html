@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAEO - Premium Street Caps</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff6b35;
+            --secondary-color: #1a1a1a;
+            --accent-color: #333;
+            --text-light: #e0e0e0;
+            --text-dark: #666;
+            --gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            --dark-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0f0f0f;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-icon {
+            position: relative;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        /* Mobile Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            height: 100vh;
+            background: var(--secondary-color);
+            z-index: 1001;
+            transition: left 0.3s ease;
+            padding: 2rem;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .sidebar-links {
+            list-style: none;
+        }
+
+        .sidebar-links li {
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Shop Section */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: var(--accent-color);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            opacity: 0.9;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: var(--accent-color);
+            padding: 5rem 2rem;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .testimonial-author {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .stars {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            background: var(--accent-color);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .contact-form {
+            background: var(--accent-color);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--secondary-color);
+            color: var(--text-light);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        /* Order Section */
+        .order-form {
+            background: var(--accent-color);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .order-summary {
+            background: var(--secondary-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .order-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            border-top: 1px solid var(--accent-color);
+            padding-top: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary-color);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--accent-color);
+            padding-top: 1rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading animation */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--accent-color);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">KAEO</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#order">Order</a></li>
+                </ul>
+            </nav>
+            <div class="nav-actions">
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">KAEO</div>
+            <button class="close-btn" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="sidebar-links">
+            <li><a href="#home" onclick="toggleSidebar()">Home</a></li>
+            <li><a href="#shop" onclick="toggleSidebar()">Shop</a></li>
+            <li><a href="#about" onclick="toggleSidebar()">About</a></li>
+            <li><a href="#testimonials" onclick="toggleSidebar()">Reviews</a></li>
+            <li><a href="#contact" onclick="toggleSidebar()">Contact</a></li>
+            <li><a href="#order" onclick="toggleSidebar()">Order</a></li>
+        </ul>
+    </div>
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">KAEO</h1>
+            <p class="hero-subtitle">Premium Street Caps Collection</p>
+            <p class="hero-description">Elevate your street style with our exclusive range of premium caps. Designed for the urban lifestyle, crafted for distinction.</p>
+            <button class="cta-button" onclick="scrollToSection('shop')">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="section">
+        <h2 class="section-title scroll-reveal">Our Collection</h2>
+        <div class="product-grid">
+            <div class="product-card scroll-reveal">
+                <img src="cap.png" alt="Urban Shadow Cap" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Urban Shadow Cap</h3>
+                    <p class="product-price">$45.00</p>
+                    <button class="add-to-cart" onclick="addToCart('Urban Shadow Cap', 45.00)">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card scroll-reveal">
+                <img src="cap.png" alt="Street Elite Cap" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Street Elite Cap</h3>
+                    <p class="product-price">$52.00</p>
+                    <button class="add-to-cart" onclick="addToCart('Street Elite Cap', 52.00)">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card scroll-reveal">
+                <img src="cap.png" alt="Midnight Vibes Cap" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Midnight Vibes Cap</h3>
+                    <p class="product-price">$48.00</p>
+                    <button class="add-to-cart" onclick="addToCart('Midnight Vibes Cap', 48.00)">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card scroll-reveal">
+                <img src="cap.png" alt="Urban Legend Cap" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Urban Legend Cap</h3>
+                    <p class="product-price">$55.00</p>
+                    <button class="add-to-cart" onclick="addToCart('Urban Legend Cap', 55.00)">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card scroll-reveal">
+                <img src="cap.png" alt="Street King Cap" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Street King Cap</h3>
+                    <p class="product-price">$58.00</p>
+                    <button class="add-to-cart" onclick="addToCart('Street King Cap', 58.00)">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card scroll-reveal">
+                <img src="cap.png" alt="Neon Nights Cap" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Neon Nights Cap</h3>
+                    <p class="product-price">$50.00</p>
+                    <button class="add-to-cart" onclick="addToCart('Neon Nights Cap', 50.00)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="section-title scroll-reveal">About KAEO</h2>
+        <div class="about-content">
+            <div class="about-text scroll-reveal">
+                <p>Founded in the heart of the urban landscape, KAEO represents the fusion of street culture and premium craftsmanship. Our brand emerged from a passion for authentic streetwear that doesn't compromise on quality or style.</p>
+                <br>
+                <p>Each cap in our collection tells a story of urban resilience, creative expression, and the relentless pursuit of excellence. We work with skilled artisans who understand the nuances of street fashion, ensuring every piece meets our exacting standards.</p>
+                <br>
+                <p>KAEO isn't just about caps – it's about representing your authentic self in the urban jungle. We believe that true style comes from confidence, and our caps are designed to amplify that confidence while keeping you comfortable throughout your journey.</p>
+            </div>
+            <div class="scroll-reveal">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="About KAEO" class="about-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="section">
+            <h2 class="section-title scroll-reveal">What Our Customers Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card scroll-reveal">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"KAEO caps are next level! The quality is incredible and the style is exactly what I was looking for. Perfect for my street photography sessions."</p>
+                    <p class="testimonial-author">- Marcus J.</p>
+                </div>
+                <div class="testimonial-card scroll-reveal">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"I've been wearing KAEO for months now and these caps still look brand new. The attention to detail is amazing. Highly recommend!"</p>
+                    <p class="testimonial-author">- Sarah L.</p>
+                </div>
+                <div class="testimonial-card scroll-reveal">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Finally found a brand that understands street culture. These caps are fire and the customer service is top-notch. Will definitely order again!"</p>
+                    <p class="testimonial-author">- Diego R.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title scroll-reveal">Get In Touch</h2>
+        <div class="contact-content">
+            <div class="contact-info scroll-reveal">
+                <h3>Contact Information</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Street Fashion Ave, Urban District, City 12345</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-KAEO</p>
+                <p><i class="fas fa-envelope"></i> info@kaeostreet.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM-6PM, Sat: 10AM-4PM</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <form class="contact-form scroll-reveal">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="order" class="section">
+        <h2 class="section-title scroll-reveal">Complete Your Order</h2>
+        <div class="order-form scroll-reveal">
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <div id="orderItems">
+                    <p>Your cart is empty</p>
+                </div>
+                <div class="order-total">
+                    <div class="order-item">
+                        <span>Total: </span>
+                        <span id="orderTotal">$0.00</span>
+                    </div>
+                </div>
+            </div>
+            <form id="orderForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="orderEmail">Email</label>
+                    <input type="email" id="orderEmail" name="orderEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="zipCode">ZIP Code</label>
+                    <input type="text" id="zipCode" name="zipCode" required>
+                </div>
+                <div class="form-group">
+                    <label for="paymentMethod">Payment Method</label>
+                    <select id="paymentMethod" name="paymentMethod" style="width: 100%; padding: 0.8rem; border: none; border-radius: 8px; background: var(--secondary-color); color: var(--text-light);">
+                        <option value="credit">Credit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="apple">Apple Pay</option>
+                        <option value="google">Google Pay</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Place Order</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>KAEO</h3>
+                <p>Premium street caps for the urban lifestyle. Crafted with passion, designed for distinction.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#shop">Shop</a>
+                <a href="#about">About</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <a href="#order">Track Order</a>
+                <a href="#">Size Guide</a>
+                <a href="#">Returns</a>
+                <a href="#">Shipping Info</a>
+                <a href="#">FAQ</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Street Fashion Ave</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-KAEO</p>
+                <p><i class="fas fa-envelope"></i> info@kaeostreet.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 KAEO. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Cart functionality
+        let cart = [];
+        let cartTotal = 0;
+
+        function addToCart(name, price) {
+            cart.push({name, price});
+            updateCartCount();
+            updateOrderSummary();
+            showNotification(`${name} added to cart!`);
+        }
+
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            cartCount.textContent = cart.length;
+        }
+
+        function updateOrderSummary() {
+            const orderItems = document.getElementById('orderItems');
+            const orderTotal = document.getElementById('orderTotal');
+            
+            if (cart.length === 0) {
+                orderItems.innerHTML = '<p>Your cart is empty</p>';
+                orderTotal.textContent = '$0.00';
+                return;
+            }
+
+            let itemsHtml = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                itemsHtml += `
+                    <div class="order-item">
+                        <span>${item.name}</span>
+                        <span>${item.price.toFixed(2)} <button onclick="removeFromCart(${index})" style="background: none; border: none; color: var(--primary-color); cursor: pointer; margin-left: 10px;"><i class="fas fa-trash"></i></button></span>
+                    </div>
+                `;
+                total += item.price;
+            });
+
+            orderItems.innerHTML = itemsHtml;
+            orderTotal.textContent = `${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            updateOrderSummary();
+            showNotification('Item removed from cart');
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: var(--gradient);
+                    color: white;
+                    padding: 1rem 2rem;
+                    border-radius: 8px;
+                    z-index: 10000;
+                    animation: slideIn 0.3s ease;
+                ">
+                    ${message}
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Mobile sidebar functionality
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Smooth scrolling
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add smooth scrolling to all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(26, 26, 26, 0.98)';
+            } else {
+                header.style.background = 'rgba(26, 26, 26, 0.95)';
+            }
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submissions
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            showNotification('Message sent successfully!');
+            e.target.reset();
+        });
+
+        document.getElementById('orderForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (cart.length === 0) {
+                showNotification('Please add items to your cart first');
+                return;
+            }
+            showNotification('Order placed successfully! You will receive a confirmation email shortly.');
+            cart = [];
+            updateCartCount();
+            updateOrderSummary();
+            e.target.reset();
+        });
+
+        // Loading animation
+        window.addEventListener('load', () => {
+            const loading = document.getElementById('loading');
+            loading.style.display = 'none';
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Product card hover effects
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Dynamic pricing animation
+        document.querySelectorAll('.product-price').forEach(price => {
+            price.addEventListener('mouseenter', () => {
+                price.style.transform = 'scale(1.1)';
+                price.style.transition = 'transform 0.3s ease';
+            });
+            
+            price.addEventListener('mouseleave', () => {
+                price.style.transform = 'scale(1)';
+            });
+        });
+
+        // Typewriter effect for hero title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typewriter effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroTitle = document.querySelector('.hero-title');
+            if (heroTitle) {
+                setTimeout(() => {
+                    typeWriter(heroTitle, 'KAEO', 200);
+                }, 500);
+            }
+        });
+
+        // Add floating animation to cart icon
+        setInterval(() => {
+            const cartIcon = document.querySelector('.cart-icon');
+            if (cart.length > 0) {
+                cartIcon.style.animation = 'bounce 0.6s ease';
+                setTimeout(() => {
+                    cartIcon.style.animation = '';
+                }, 600);
+            }
+        }, 3000);
+
+        // Advanced scroll animations
+        const scrollElements = document.querySelectorAll('.scroll-reveal');
+        
+        const elementInView = (el, dividend = 1) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+            );
+        };
+
+        const displayScrollElement = (element) => {
+            element.classList.add('active');
+        };
+
+        const hideScrollElement = (element) => {
+            element.classList.remove('active');
+        };
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                if (elementInView(el, 1.25)) {
+                    displayScrollElement(el);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', handleScrollAnimation);
+
+
+
+        // Add glow effect to buttons on hover
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.boxShadow = '0 0 20px rgba(255, 107, 53, 0.5)';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.boxShadow = 'none';
+            });
+        });
+
+        // Lazy loading for images
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.remove('lazy');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+
+        // Performance optimization
+        let ticking = false;
+        
+        function updateScrollEffects() {
+            handleScrollAnimation();
+            ticking = false;
+        }
+        
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateScrollEffects);
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', requestTick);
+    </script>
+
+    <style>
+        /* Additional CSS animations */
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% { transform: translateY(0); }
+            40%, 43% { transform: translateY(-10px); }
+            70% { transform: translateY(-5px); }
+            90% { transform: translateY(-2px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(255, 107, 53, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.6); }
+        }
+
+        .glow-effect {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        /* Improved mobile responsiveness */
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Dark mode enhancements */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-light: #f0f0f0;
+                --secondary-color: #0a0a0a;
+                --accent-color: #222;
+            }
+        }
+    </style>
+</body>
+</html>
