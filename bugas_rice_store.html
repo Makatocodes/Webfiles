@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUGAS - Premium Rice Store</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-menu li a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+        .nav-menu li a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(1, 24, 2, 0.9), rgba(0, 0, 0, 0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f0f0f0" width="1200" height="600"/><circle cx="200" cy="150" r="3" fill="%23d0d0d0"/><circle cx="400" cy="250" r="2" fill="%23d0d0d0"/><circle cx="600" cy="100" r="4" fill="%23d0d0d0"/><circle cx="800" cy="300" r="3" fill="%23d0d0d0"/><circle cx="1000" cy="200" r="2" fill="%23d0d0d0"/></svg>');
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            padding: 2rem;
+            gap: 3rem;
+        }
+        .hero-img {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-img img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 30px;
+            box-shadow: 0 8px 40px rgba(44,85,48,0.18);
+            object-fit: cover;
+        }
+        .hero-content {
+            text-align: center;
+            flex: 1;
+            max-width: 500px;
+            padding: 2rem 0;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            align-self: center;
+            background: linear-gradient(45deg, #fff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255,107,53,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255,107,53,0.4);
+            background: linear-gradient(45deg, #f7931e, #ff6b35);
+        }
+        /* Products Section */
+        .products {
+            padding: 5rem 2rem;
+            background: #f8f9fa;
+            position: relative;
+        }
+        .products::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(180deg, rgba(248,249,250,0) 0%, rgba(248,249,250,1) 100%);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #2c5530, #4a7c59);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            display: block;
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            transition: left 0.3s ease;
+        }
+        .product-card:hover::before {
+            left: 0;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        .product-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 16px rgba(44,85,48,0.10);
+            border: 4px solid #f8f9fa;
+            background: #f8f9fa;
+        }
+        .product-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c5530;
+        }
+        .product-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+        .order-btn {
+            background: linear-gradient(45deg, #4a7c59, #2c5530);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+        .order-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(44,85,48,0.3);
+        }
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .about::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s infinite linear;
+        }
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #fff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .feature i {
+            color: #ffd700;
+            font-size: 1.5rem;
+        }
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background: #fff;
+        }
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .contact-info {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+        .contact-item i {
+            color: #4a7c59;
+            font-size: 1.5rem;
+            width: 30px;
+        }
+        .contact-form {
+            background: linear-gradient(135deg, #4a7c59, #2c5530);
+            padding: 2rem;
+            border-radius: 20px;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ffd700;
+            background: rgba(255,255,255,0.15);
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        .submit-btn {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255,107,53,0.3);
+        }
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1a3a1e, #2c5530);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .social-links a:hover {
+            transform: translateY(-3px) scale(1.1);
+            background: rgba(255,215,0,0.2);
+            color: #ffd700;
+        }
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes float {
+            from { transform: rotate(0deg);}
+            to { transform: rotate(360deg);}
+        }
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .hero-inner { flex-direction: column; gap: 2rem; }
+            .hero-content { text-align: center; }
+            .hero-img img { max-width: 300px; }
+            .about-content { grid-template-columns: 1fr; }
+            .contact-content { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .mobile-menu-toggle { display: block; }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(135deg, #2c5530, #4a7c59);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            }
+            .nav-menu.active { display: flex; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.1rem; }
+            .about-content { grid-template-columns: 1fr; text-align: center; }
+            .contact-content { grid-template-columns: 1fr; }
+            .features { grid-template-columns: 1fr; }
+            .section-title { font-size: 2rem; }
+            .nav-container { padding: 0 1rem; }
+            .hero-content { padding: 1rem; }
+        }
+        /* Smooth Scrolling */
+        html { scroll-behavior: smooth; }
+        /* Loading Animation */
+        .loading {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #2c5530, #4a7c59);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            color: white;
+            font-size: 2rem;
+            font-weight: bolder;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        /* Cart notification */
+        .cart-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(45deg, #4caf50, #66bb6a);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(76,175,80,0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+        .cart-notification.show { transform: translateX(0);}
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <i class="fas fa-seedling fa-spin"></i> &nbsp; BUGAS
+    </div>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">BUGAS</div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-inner">
+            <div class="hero-img">
+                <img src="https://www.health.com/thmb/a8GxwWgmB5KpQW8SfW6VA7UFwaI=/722x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1734160670-0157c2daf8e841d6a783b38aedc51aa8.jpg" alt="Rice Hero Image" loading="lazy">
+            </div>
+            <div class="hero-content">
+                <h1>BUGAS</h1>
+                <p>Premium Quality Rice for Every Filipino Family</p>
+                <a href="#products" class="cta-button">Shop Now</a>
+            </div>
+        </div>
+    </section>
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">Our Premium Rice Collection</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img class="product-img" src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80" alt="Premium Jasmine Rice">
+                    <h3>Premium Jasmine Rice</h3>
+                    <p>Aromatic long-grain rice perfect for everyday meals. Imported directly from the finest farms.</p>
+                    <div class="price">₱85/kg</div>
+                    <button class="order-btn" onclick="addToCart('Premium Jasmine Rice', 85)">Order Now</button>
+                </div>
+                <div class="product-card">
+                    <img class="product-img" src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="Brown Rice">
+                    <h3>Brown Rice</h3>
+                    <p>Healthy whole grain option packed with nutrients and fiber for health-conscious families.</p>
+                    <div class="price">₱95/kg</div>
+                    <button class="order-btn" onclick="addToCart('Brown Rice', 95)">Order Now</button>
+                </div>
+                <div class="product-card">
+                    <img class="product-img" src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80" alt="Basmati Rice">
+                    <h3>Basmati Rice</h3>
+                    <p>Premium long-grain rice with distinctive aroma and fluffy texture. Perfect for special occasions.</p>
+                    <div class="price">₱120/kg</div>
+                    <button class="order-btn" onclick="addToCart('Basmati Rice', 120)">Order Now</button>
+                </div>
+                <div class="product-card">
+                    <img class="product-img" src="https://images.unsplash.com/photo-1506089676908-3592f7389d4d?auto=format&fit=crop&w=400&q=80" alt="Red Rice">
+                    <h3>Red Rice</h3>
+                    <p>Nutritious red rice variety rich in antioxidants and minerals. A healthy choice for modern living.</p>
+                    <div class="price">₱110/kg</div>
+                    <button class="order-btn" onclick="addToCart('Red Rice', 110)">Order Now</button>
+                </div>
+                <div class="product-card">
+                    <img class="product-img" src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Black Rice">
+                    <h3>Black Rice</h3>
+                    <p>Exotic forbidden rice with deep color and nutty flavor. Rich in antioxidants and protein.</p>
+                    <div class="price">₱150/kg</div>
+                    <button class="order-btn" onclick="addToCart('Black Rice', 150)">Order Now</button>
+                </div>
+                <div class="product-card">
+                    <img class="product-img" src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Premium Local Rice">
+                    <h3>Premium Local Rice</h3>
+                    <p>Best quality Filipino rice varieties supporting local farmers. Fresh, affordable, and delicious.</p>
+                    <div class="price">₱65/kg</div>
+                    <button class="order-btn" onclick="addToCart('Premium Local Rice', 65)">Order Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About BUGAS</h2>
+                    <p>For over 15 years, BUGAS has been the trusted name in premium rice distribution across the Philippines. We source the finest rice varieties from local and international farms, ensuring every grain meets our strict quality standards.</p>
+                    <p>Our commitment goes beyond just selling rice – we're dedicated to supporting local farmers, promoting sustainable agriculture, and bringing healthy, nutritious options to Filipino families nationwide.</p>
+                </div>
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Premium Quality Guarantee</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-truck"></i>
+                        <span>Fast Nationwide Delivery</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>100% Authentic Products</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-users"></i>
+                        <span>Supporting Local Farmers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3 style="margin-bottom: 2rem; color: #2c5530; font-size: 1.5rem;">Contact Information</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Address:</strong><br>
+                            123 Rice Avenue, Cebu City, Philippines
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Phone:</strong><br>
+                            +63 917 123 4567
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email:</strong><br>
+                            info@bugas.ph
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>Business Hours:</strong><br>
+                            Monday - Saturday: 8AM - 6PM<br>
+                            Sunday: 9AM - 3PM
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 2rem;">Send us a Message</h3>
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="How can we help you?" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <p>&copy; 2024 BUGAS Rice Store. All rights reserved. | Made with ❤️ for Filipino families</p>
+        </div>
+    </footer>
+    <!-- Cart Notification -->
+    <div class="cart-notification" id="cart-notification">
+        <i class="fas fa-check-circle"></i> Item added to cart!
+    </div>
+   <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-toggle').onclick = function() {
+        document.getElementById('nav-menu').classList.toggle('active');
+    };
+    // Loading animation
+    window.addEventListener('DOMContentLoaded', function() {
+        const loading = document.getElementById('loading');
+        loading.style.opacity = '1';
+        loading.style.visibility = 'visible';
+        setTimeout(() => {
+            loading.style.opacity = '0';
+            loading.style.visibility = 'hidden';
+        }, 800);
+    });
+    // Cart notification
+    function addToCart(product, price) {
+        const notif = document.getElementById('cart-notification');
+        notif.classList.add('show');
+        notif.innerHTML = `<i class="fas fa-check-circle"></i> ${product} added to cart!`;
+        setTimeout(() => notif.classList.remove('show'), 2000);
+    }
+    // Contact form (optional: prevent default and show alert)
+    document.getElementById('contact-form').onsubmit = function(e) {
+        e.preventDefault();
+        alert('Thank you for contacting BUGAS! We will get back to you soon.');
+        this.reset();
+    };
+   </script>
+   <script src="bugas.js"></script>
+</body>
+</html>

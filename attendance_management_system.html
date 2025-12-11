@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AttendEase - Employee Attendance & Leave Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a6fd8;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-hover: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
+            --shadow: 0 10px 25px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-200);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 2rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--gradient-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--gray-600);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .dashboard-preview {
+            width: 100%;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            transform: perspective(1000px) rotateY(-15deg);
+            transition: transform 0.5s ease;
+        }
+
+        .dashboard-preview:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 0;
+            background: var(--gray-100);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .feature-icon i {
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--gray-600);
+            line-height: 1.7;
+        }
+
+        /* Dashboard Section */
+        .dashboard-section {
+            padding: 8rem 0;
+            background: var(--white);
+        }
+
+        .dashboard-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 1rem 2rem;
+            border: none;
+            background: var(--gray-200);
+            color: var(--gray-600);
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            background: var(--gradient);
+            color: var(--white);
+        }
+
+        .dashboard-content {
+            background: var(--gray-100);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon.success { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .stat-icon.warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .stat-icon.error { background: rgba(239, 68, 68, 0.1); color: var(--error); }
+        .stat-icon.primary { background: rgba(102, 126, 234, 0.1); color: var(--primary); }
+
+        .stat-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-content p {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        /* Login Form */
+        .login-section {
+            padding: 8rem 0;
+            background: var(--gray-100);
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .login-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: var(--gray-600);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background: var(--gradient-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--gray-400);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--gray-700);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--gray-400);
+        }
+
+        /* Hidden sections */
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-clock"></i>
+                AttendEase
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#login" class="btn-primary">Login</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content fade-in">
+                <h1>Smart Attendance & Leave Management</h1>
+                <p>Streamline your workforce management with our intelligent attendance tracking and leave management system. Built for modern teams.</p>
+                <div class="hero-buttons">
+                    <a href="#dashboard" class="btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Get Started
+                    </a>
+                    <a href="#features" class="btn-secondary">
+                        <i class="fas fa-play"></i>
+                        Watch Demo
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image fade-in">
+                <div class="dashboard-preview">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-chart-line" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin: 0; font-size: 1.2rem; color: var(--gray-900);">Dashboard Overview</h3>
+                            <p style="margin: 0; color: var(--gray-600); font-size: 0.9rem;">Real-time insights</p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                        <div style="padding: 1rem; background: var(--gray-100); border-radius: 10px;">
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--success);">98.5%</div>
+                            <div style="font-size: 0.8rem; color: var(--gray-600);">Attendance Rate</div>
+                        </div>
+                        <div style="padding: 1rem; background: var(--gray-100); border-radius: 10px;">
+                            <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">342</div>
+                            <div style="font-size: 0.8rem; color: var(--gray-600);">Active Employees</div>
+                        </div>
+                    </div>
+                    <div style="height: 60px; background: var(--gray-100); border-radius: 10px; position: relative; overflow: hidden;">
+                        <div style="height: 100%; background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%); width: 75%; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 0.9rem;">
+                            Monthly Progress - 75%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login" class="login-section">
+        <div class="container">
+            <div class="login-container fade-in">
+                <div class="login-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to your account</p>
+                </div>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem;">
+                            <input type="checkbox" style="margin: 0;"> Remember me
+                        </label>
+                        <a href="#" style="color: var(--primary); text-decoration: none; font-size: 0.875rem;">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn-login">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                </form>
+                <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--gray-200);">
+                    <p style="color: var(--gray-600); margin-bottom: 1rem;">Demo Credentials:</p>
+                    <div style="background: var(--gray-100); padding: 1rem; border-radius: 8px; font-size: 0.875rem;">
+                        <p><strong>Admin:</strong> admin@attendease.com / admin123</p>
+                        <p><strong>Employee:</strong> employee@attendease.com / emp123</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="features" style="background: white;">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">Ready to transform your attendance management? Contact us today</p>
+            </div>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <form style="background: var(--gray-100); padding: 3rem; border-radius: 20px; box-shadow: var(--shadow);">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-input" placeholder="John" required>
+                        </div>
+                        <div>
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-input" placeholder="Doe" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" placeholder="john@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Company Size</label>
+                        <select class="form-input" required>
+                            <option value="">Select company size</option>
+                            <option value="1-10">1-10 employees</option>
+                            <option value="11-50">11-50 employees</option>
+                            <option value="51-200">51-200 employees</option>
+                            <option value="201-500">201-500 employees</option>
+                            <option value="500+">500+ employees</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-input" rows="4" placeholder="Tell us about your requirements..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i>
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>AttendEase</h3>
+                    <p style="color: var(--gray-400); margin-bottom: 1rem;">The ultimate solution for employee attendance and leave management.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: var(--gray-400); font-size: 1.5rem; transition: color 0.3s ease;">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" style="color: var(--gray-400); font-size: 1.5rem; transition: color 0.3s ease;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" style="color: var(--gray-400); font-size: 1.5rem; transition: color 0.3s ease;">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" style="color: var(--gray-400); font-size: 1.5rem; transition: color 0.3s ease;">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Status Page</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Training</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AttendEase. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            
+            // Animate hamburger menu
+            const spans = mobileMenu.querySelectorAll('span');
+            spans.forEach((span, index) => {
+                span.style.transform = navMenu.classList.contains('active') 
+                    ? `rotate(${index === 0 ? 45 : index === 1 ? 0 : -45}deg) translate(${index === 1 ? '10px' : '0'}, ${index === 0 ? '6px' : index === 2 ? '-6px' : '0'})`
+                    : 'none';
+                span.style.opacity = index === 1 && navMenu.classList.contains('active') ? '0' : '1';
+            });
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link, .btn-primary').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                const spans = mobileMenu.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.style.transform = 'none';
+                    span.style.opacity = '1';
+                });
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = 'var(--shadow)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab and activate button
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+            event.target.classList.add('active');
+            
+            // Animate tab content
+            gsap.fromTo(`#${tabName}-tab`, 
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+            );
+        }
+
+        // Login form handling
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Demo authentication
+            if ((email === 'admin@attendease.com' && password === 'admin123') || 
+                (email === 'employee@attendease.com' && password === 'emp123')) {
+                
+                // Show success animation
+                gsap.to('.login-container', {
+                    scale: 0.95,
+                    duration: 0.2,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: "power2.inOut"
+                });
+                
+                setTimeout(() => {
+                    alert(`Welcome! You've successfully logged in as ${email.includes('admin') ? 'Administrator' : 'Employee'}`);
+                    // In a real app, redirect to dashboard
+                    window.location.href = '#dashboard';
+                }, 500);
+            } else {
+                // Show error animation
+                gsap.to('.login-container', {
+                    x: -10,
+                    duration: 0.1,
+                    yoyo: true,
+                    repeat: 5,
+                    ease: "power2.inOut"
+                });
+                alert('Invalid credentials. Please use the demo credentials provided.');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    
+                    // GSAP animations for specific elements
+                    if (entry.target.classList.contains('feature-card')) {
+                        gsap.fromTo(entry.target, 
+                            { y: 50, opacity: 0 },
+                            { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }
+                        );
+                    }
+                    
+                    if (entry.target.classList.contains('stat-card')) {
+                        gsap.fromTo(entry.target, 
+                            { scale: 0.8, opacity: 0 },
+                            { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.7)" }
+                        );
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.fade-in, .feature-card, .stat-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target) {
+            const duration = 2000;
+            const steps = 60;
+            const increment = target / steps;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = target % 1 === 0 ? Math.floor(current) : current.toFixed(1);
+            }, duration / steps);
+        }
+
+        // Trigger counter animations when stats are visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statElement = entry.target.querySelector('h3');
+                    const text = statElement.textContent;
+                    const number = parseFloat(text.replace(/[^\d.]/g, ''));
+                    
+                    if (!isNaN(number)) {
+                        statElement.textContent = text.includes('%') ? '0%' : '0';
+                        animateCounter(statElement, number);
+                        if (text.includes('%')) {
+                            setTimeout(() => {
+                                statElement.textContent += '%';
+                            }, 2000);
+                        }
+                    }
+                    
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-card').forEach(card => {
+            statsObserver.observe(card);
+        });
+
+        // Particles animation for hero background
+        function createParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.style.position = 'absolute';
+            particlesContainer.style.top = '0';
+            particlesContainer.style.left = '0';
+            particlesContainer.style.width = '100%';
+            particlesContainer.style.height = '100%';
+            particlesContainer.style.pointerEvents = 'none';
+            particlesContainer.style.overflow = 'hidden';
+            
+            document.querySelector('.hero').appendChild(particlesContainer);
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 4 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = 'rgba(255, 255, 255, 0.1)';
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                particlesContainer.appendChild(particle);
+                
+                // Animate particles
+                gsap.to(particle, {
+                    y: -100,
+                    x: Math.random() * 200 - 100,
+                    duration: Math.random() * 10 + 5,
+                    repeat: -1,
+                });
+            }
+        }
+        createParticles();
+                    </script>
+    
+
+</body>
+</html>

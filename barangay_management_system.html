@@ -1,0 +1,1923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Management System - Digital Governance Solution</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-item {
+            margin: 0 1rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--light);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 150px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="1.5" fill="rgba(255,255,255,0.05)"/></svg>');
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--white);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dashboard-preview {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-preview:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.05);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-desc {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: var(--light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+
+        /* Management Dashboard */
+        .dashboard {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .dashboard-sidebar {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .dashboard-content {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--dark);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .sidebar-nav i {
+            margin-right: 1rem;
+            width: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-item {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .stat-item i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+
+        /* Forms */
+        .form-section {
+            padding: 50px 0;
+            background: var(--white);
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Residents Table */
+        .table-container {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .table-header {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.2);
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            color: var(--white);
+            padding: 0.5rem;
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background: var(--light);
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .data-table tbody tr:hover {
+            background: var(--light);
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-edit {
+            background: var(--info);
+            color: var(--white);
+        }
+
+        .btn-delete {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .btn-view {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: var(--white);
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close {
+            color: var(--gray);
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+        }
+
+        .close:hover {
+            color: var(--dark);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            min-height: 80vh;
+            padding: 120px 0 50px;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--white);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 1rem 0;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .text-primary { color: var(--primary); }
+        .bg-primary { background: var(--primary); }
+        .mt-2 { margin-top: 1rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .p-2 { padding: 1rem; }
+        .hidden { display: none; }
+        .flex { display: flex; }
+        .justify-between { justify-content: space-between; }
+        .items-center { align-items: center; }
+        .gap-2 { gap: 1rem; }
+
+        /* Print Styles */
+        @media print {
+            .navbar, .footer, .sidebar-nav { display: none; }
+            .dashboard-content { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-landmark"></i>
+                    <span>MALOCO</span>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showPage('home')">Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showPage('residents')">Residents</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showPage('certificates')">Certificates</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showPage('officials')">Officials</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showPage('reports')">Reports</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" onclick="showPage('settings')">Settings</a></li>
+                </ul>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page-section active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text" data-aos="fade-right">
+                        <h1>Barangay Maloco Management System</h1>
+                        <p>Streamline your barangay operations with our comprehensive digital solution. Manage residents, issue certificates, and track community data efficiently.</p>
+                        <a href="#" class="btn-primary" onclick="showPage('residents')">
+                            <i class="fas fa-rocket"></i>
+                            Get Started
+                        </a>
+                        
+                        <div class="hero-stats">
+                            <div class="stat-card">
+                                <span class="stat-number">1,250</span>
+                                <span>Residents</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">450</span>
+                                <span>Certificates</span>
+                            </div>
+                            <div class="stat-card">
+                                <span class="stat-number">12</span>
+                                <span>Officials</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual" data-aos="fade-left">
+                        <div class="dashboard-preview">
+                            <i class="fas fa-chart-pie" style="font-size: 4rem; color: var(--primary);"></i>
+                            <h3 style="margin-top: 1rem; color: var(--dark);">Dashboard Preview</h3>
+                            <p style="color: var(--gray);">Real-time barangay analytics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 class="section-title">Powerful Features</h2>
+                    <p class="section-subtitle">Everything you need to manage your barangay efficiently and effectively</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="feature-title">Resident Management</h3>
+                        <p class="feature-desc">Comprehensive resident database with personal information, family records, and demographic tracking.</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3 class="feature-title">Certificate Issuance</h3>
+                        <p class="feature-desc">Digital certificate generation for barangay clearance, residency, and other official documents.</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="feature-title">Analytics & Reports</h3>
+                        <p class="feature-desc">Detailed analytics and customizable reports for better decision-making and governance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <h2 class="section-title">Barangay Services</h2>
+                    <p class="section-subtitle">Digital services for better community governance</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <h3>Barangay ID</h3>
+                        <p>Issue and manage barangay identification cards for residents</p>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>Clearance</h3>
+                        <p>Generate barangay clearance certificates for various purposes</p>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Residency Certificate</h3>
+                        <p>Proof of residency documentation for legal requirements</p>
+                    </div>
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Business Permit</h3>
+                        <p>Assist in business permit applications and renewals</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Residents Page -->
+    <div id="residents" class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Resident Management</h2>
+                <p class="section-subtitle">Manage and maintain resident records efficiently</p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-sidebar">
+                    <ul class="sidebar-nav">
+                        <li><a href="#" class="active" onclick="showResidentsTab('all')"><i class="fas fa-users"></i>All Residents</a></li>
+                        <li><a href="#" onclick="showResidentsTab('add')"><i class="fas fa-user-plus"></i>Add Resident</a></li>
+                        <li><a href="#" onclick="showResidentsTab('search')"><i class="fas fa-search"></i>Search Residents</a></li>
+                        <li><a href="#" onclick="showResidentsTab('statistics')"><i class="fas fa-chart-bar"></i>Statistics</a></li>
+                        <li><a href="#" onclick="showResidentsTab('import')"><i class="fas fa-upload"></i>Import Data</a></li>
+                    </ul>
+                </div>
+                
+                <div class="dashboard-content">
+                    <div id="residents-all" class="residents-tab active">
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                                <div class="stat-value">1,250</div>
+                                <div class="stat-label">Total Residents</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-male"></i>
+                                <div class="stat-value">625</div>
+                                <div class="stat-label">Male</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-female"></i>
+                                <div class="stat-value">625</div>
+                                <div class="stat-label">Female</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-child"></i>
+                                <div class="stat-value">285</div>
+                                <div class="stat-label">Minors</div>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <div class="table-header">
+                                <h3>Residents List</h3>
+                                <div class="search-box">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" placeholder="Search residents..." id="resident-search">
+                                </div>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Age</th>
+                                        <th>Gender</th>
+                                        <th>Address</th>
+                                        <th>Contact</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="residents-table-body">
+                                    <tr>
+                                        <td>RES001</td>
+                                        <td>Juan Dela Cruz</td>
+                                        <td>35</td>
+                                        <td>Male</td>
+                                        <td>123 Main St.</td>
+                                        <td>09123456789</td>
+                                        <td>
+                                            <button class="action-btn btn-view" onclick="viewResident('RES001')">View</button>
+                                            <button class="action-btn btn-edit" onclick="editResident('RES001')">Edit</button>
+                                            <button class="action-btn btn-delete" onclick="deleteResident('RES001')">Delete</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>RES002</td>
+                                        <td>Maria Santos</td>
+                                        <td>28</td>
+                                        <td>Female</td>
+                                        <td>456 Oak Ave.</td>
+                                        <td>09987654321</td>
+                                        <td>
+                                            <button class="action-btn btn-view" onclick="viewResident('RES002')">View</button>
+                                            <button class="action-btn btn-edit" onclick="editResident('RES002')">Edit</button>
+                                            <button class="action-btn btn-delete" onclick="deleteResident('RES002')">Delete</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>RES003</td>
+                                        <td>Pedro Reyes</td>
+                                        <td>42</td>
+                                        <td>Male</td>
+                                        <td>789 Pine Rd.</td>
+                                        <td>09111222333</td>
+                                        <td>
+                                            <button class="action-btn btn-view" onclick="viewResident('RES003')">View</button>
+                                            <button class="action-btn btn-edit" onclick="editResident('RES003')">Edit</button>
+                                            <button class="action-btn btn-delete" onclick="deleteResident('RES003')">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="residents-add" class="residents-tab">
+                        <div class="form-container">
+                            <h3>Add New Resident</h3>
+                            <form id="add-resident-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input type="text" id="first-name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input type="text" id="last-name" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Middle Name</label>
+                                        <input type="text" id="middle-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Suffix</label>
+                                        <select id="suffix">
+                                            <option value="">None</option>
+                                            <option value="Jr.">Jr.</option>
+                                            <option value="Sr.">Sr.</option>
+                                            <option value="II">II</option>
+                                            <option value="III">III</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Date of Birth</label>
+                                        <input type="date" id="birth-date" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Gender</label>
+                                        <select id="gender" required>
+                                            <option value="">Select Gender</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Complete Address</label>
+                                    <textarea id="address" rows="3" required></textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Contact Number</label>
+                                        <input type="tel" id="contact" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Civil Status</label>
+                                        <select id="civil-status" required>
+                                            <option value="">Select Status</option>
+                                            <option value="Single">Single</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Divorced">Divorced</option>
+                                            <option value="Widowed">Widowed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Occupation</label>
+                                        <input type="text" id="occupation">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Education Level</label>
+                                        <select id="education">
+                                            <option value="">Select Education</option>
+                                            <option value="Elementary">Elementary</option>
+                                            <option value="High School">High School</option>
+                                            <option value="College">College</option>
+                                            <option value="Post Graduate">Post Graduate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    Save Resident
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="residents-search" class="residents-tab">
+                        <div class="form-container">
+                            <h3>Advanced Search</h3>
+                            <form id="search-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Search by Name</label>
+                                        <input type="text" id="search-name" placeholder="Enter name...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Age Range</label>
+                                        <select id="age-range">
+                                            <option value="">All Ages</option>
+                                            <option value="0-17">0-17 (Minors)</option>
+                                            <option value="18-30">18-30 (Young Adults)</option>
+                                            <option value="31-50">31-50 (Adults)</option>
+                                            <option value="51+">51+ (Seniors)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Gender</label>
+                                        <select id="search-gender">
+                                            <option value="">All Genders</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Civil Status</label>
+                                        <select id="search-status">
+                                            <option value="">All Status</option>
+                                            <option value="Single">Single</option>
+                                            <option value="Married">Married</option>
+                                            <option value="Divorced">Divorced</option>
+                                            <option value="Widowed">Widowed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-search"></i>
+                                    Search Residents
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="residents-statistics" class="residents-tab">
+                        <h3>Resident Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <i class="fas fa-birthday-cake"></i>
+                                <div class="stat-value">32</div>
+                                <div class="stat-label">Average Age</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-graduation-cap"></i>
+                                <div class="stat-value">68%</div>
+                                <div class="stat-label">College Educated</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-briefcase"></i>
+                                <div class="stat-value">75%</div>
+                                <div class="stat-label">Employed</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-heart"></i>
+                                <div class="stat-value">45%</div>
+                                <div class="stat-label">Married</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="residents-import" class="residents-tab">
+                        <div class="form-container">
+                            <h3>Import Resident Data</h3>
+                            <div class="form-group">
+                                <label>Upload CSV File</label>
+                                <input type="file" id="csv-file" accept=".csv" onchange="handleFileUpload(this)">
+                                <p style="color: var(--gray); margin-top: 0.5rem;">
+                                    Upload a CSV file with resident data. Format: First Name, Last Name, Age, Gender, Address, Contact
+                                </p>
+                            </div>
+                            <div id="import-preview" class="hidden">
+                                <h4>Preview (First 5 rows):</h4>
+                                <div id="preview-table"></div>
+                                <button class="btn-primary mt-2" onclick="confirmImport()">
+                                    <i class="fas fa-check"></i>
+                                    Confirm Import
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificates Page -->
+    <div id="certificates" class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Certificate Management</h2>
+                <p class="section-subtitle">Issue and manage barangay certificates</p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-sidebar">
+                    <ul class="sidebar-nav">
+                        <li><a href="#" class="active" onclick="showCertificateTab('issue')"><i class="fas fa-plus-circle"></i>Issue Certificate</a></li>
+                        <li><a href="#" onclick="showCertificateTab('issued')"><i class="fas fa-list"></i>Issued Certificates</a></li>
+                        <li><a href="#" onclick="showCertificateTab('templates')"><i class="fas fa-file-alt"></i>Templates</a></li>
+                        <li><a href="#" onclick="showCertificateTab('verify')"><i class="fas fa-check-circle"></i>Verify Certificate</a></li>
+                    </ul>
+                </div>
+                
+                <div class="dashboard-content">
+                    <div id="certificate-issue" class="certificate-tab active">
+                        <h3>Issue New Certificate</h3>
+                        <form id="certificate-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Certificate Type</label>
+                                    <select id="cert-type" required onchange="updateCertificateForm()">
+                                        <option value="">Select Certificate Type</option>
+                                        <option value="clearance">Barangay Clearance</option>
+                                        <option value="residency">Certificate of Residency</option>
+                                        <option value="indigency">Certificate of Indigency</option>
+                                        <option value="business">Business Permit</option>
+                                        <option value="id">Barangay ID</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Resident</label>
+                                    <select id="cert-resident" required>
+                                        <option value="">Select Resident</option>
+                                        <option value="RES001">Juan Dela Cruz</option>
+                                        <option value="RES002">Maria Santos</option>
+                                        <option value="RES003">Pedro Reyes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Purpose</label>
+                                <textarea id="cert-purpose" rows="3" placeholder="Enter purpose for the certificate..." required></textarea>
+                            </div>
+
+                            <div id="business-fields" class="hidden">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Business Name</label>
+                                        <input type="text" id="business-name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Business Type</label>
+                                        <select id="business-type">
+                                            <option value="">Select Business Type</option>
+                                            <option value="retail">Retail</option>
+                                            <option value="service">Service</option>
+                                            <option value="food">Food & Beverage</option>
+                                            <option value="professional">Professional</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Business Address</label>
+                                    <textarea id="business-address" rows="2"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Issue Date</label>
+                                    <input type="date" id="issue-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Valid Until</label>
+                                    <input type="date" id="valid-until">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>OR Number</label>
+                                <input type="text" id="or-number" placeholder="Official Receipt Number">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Amount Paid</label>
+                                <input type="number" id="amount-paid" step="0.01" placeholder="0.00">
+                            </div>
+
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-certificate"></i>
+                                Issue Certificate
+                            </button>
+                        </form>
+                    </div>
+
+                    <div id="certificate-issued" class="certificate-tab">
+                        <div class="table-container">
+                            <div class="table-header">
+                                <h3>Issued Certificates</h3>
+                                <div class="search-box">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" placeholder="Search certificates..." id="certificate-search">
+                                </div>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Certificate No.</th>
+                                        <th>Type</th>
+                                        <th>Resident</th>
+                                        <th>Issue Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>CERT-2024-001</td>
+                                        <td>Barangay Clearance</td>
+                                        <td>Juan Dela Cruz</td>
+                                        <td>2024-01-15</td>
+                                        <td><span style="background: var(--success); color: white; padding: 0.25rem 0.5rem; border-radius: 15px; font-size: 0.8rem;">Valid</span></td>
+                                        <td>
+                                            <button class="action-btn btn-view" onclick="viewCertificate('CERT-2024-001')">View</button>
+                                            <button class="action-btn btn-edit" onclick="printCertificate('CERT-2024-001')">Print</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CERT-2024-002</td>
+                                        <td>Certificate of Residency</td>
+                                        <td>Maria Santos</td>
+                                        <td>2024-01-16</td>
+                                        <td><span style="background: var(--success); color: white; padding: 0.25rem 0.5rem; border-radius: 15px; font-size: 0.8rem;">Valid</span></td>
+                                        <td>
+                                            <button class="action-btn btn-view" onclick="viewCertificate('CERT-2024-002')">View</button>
+                                            <button class="action-btn btn-edit" onclick="printCertificate('CERT-2024-002')">Print</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="certificate-templates" class="certificate-tab">
+                        <h3>Certificate Templates</h3>
+                        <div class="services-grid">
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <h4>Barangay Clearance</h4>
+                                <p>Standard clearance certificate template</p>
+                                <button class="btn-primary mt-2" onclick="editTemplate('clearance')">Edit Template</button>
+                            </div>
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <h4>Certificate of Residency</h4>
+                                <p>Proof of residency certificate template</p>
+                                <button class="btn-primary mt-2" onclick="editTemplate('residency')">Edit Template</button>
+                            </div>
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <h4>Certificate of Indigency</h4>
+                                <p>Indigency certificate template</p>
+                                <button class="btn-primary mt-2" onclick="editTemplate('indigency')">Edit Template</button>
+                            </div>
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <h4>Business Permit</h4>
+                                <p>Business permit certificate template</p>
+                                <button class="btn-primary mt-2" onclick="editTemplate('business')">Edit Template</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="certificate-verify" class="certificate-tab">
+                        <div class="form-container">
+                            <h3>Verify Certificate</h3>
+                            <form id="verify-form">
+                                <div class="form-group">
+                                    <label>Certificate Number</label>
+                                    <input type="text" id="verify-cert-no" placeholder="Enter certificate number..." required>
+                                </div>
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-check"></i>
+                                    Verify Certificate
+                                </button>
+                            </form>
+                            <div id="verify-result" class="hidden mt-2">
+                                <div class="stat-item">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <h4>Certificate Valid</h4>
+                                    <p>This certificate is authentic and currently valid.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Officials Page -->
+    <div id="officials" class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Barangay Officials</h2>
+                <p class="section-subtitle">Manage barangay officials and their information</p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-sidebar">
+                    <ul class="sidebar-nav">
+                        <li><a href="#" class="active" onclick="showOfficialsTab('list')"><i class="fas fa-users"></i>Officials List</a></li>
+                        <li><a href="#" onclick="showOfficialsTab('add')"><i class="fas fa-user-plus"></i>Add Official</a></li>
+                        <li><a href="#" onclick="showOfficialsTab('committees')"><i class="fas fa-sitemap"></i>Committees</a></li>
+                        <li><a href="#" onclick="showOfficialsTab('terms')"><i class="fas fa-calendar"></i>Terms</a></li>
+                    </ul>
+                </div>
+                
+                <div class="dashboard-content">
+                    <div id="officials-list" class="officials-tab active">
+                        <div class="services-grid">
+                            <div class="service-card">
+                                <div style="text-align: center;">
+                                    <div style="width: 80px; height: 80px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">
+                                        <i class="fas fa-user-tie"></i>
+                                    </div>
+                                    <h4>Captain Juan Rodriguez</h4>
+                                    <p><strong>Barangay Captain</strong></p>
+                                    <p>Term: 2022-2025</p>
+                                    <p>Contact: 09123456789</p>
+                                    <button class="action-btn btn-edit mt-2">Edit</button>
+                                </div>
+                            </div>
+                            
+                            <div class="service-card">
+                                <div style="text-align: center;">
+                                    <div style="width: 80px; height: 80px; background: var(--secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <h4>Maria Carmen Santos</h4>
+                                    <p><strong>Kagawad</strong></p>
+                                    <p>Committee: Health & Sanitation</p>
+                                    <p>Contact: 09987654321</p>
+                                    <button class="action-btn btn-edit mt-2">Edit</button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div style="text-align: center;">
+                                    <div style="width: 80px; height: 80px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <h4>Roberto Aquino</h4>
+                                    <p><strong>Kagawad</strong></p>
+                                    <p>Committee: Peace & Order</p>
+                                    <p>Contact: 09111222333</p>
+                                    <button class="action-btn btn-edit mt-2">Edit</button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div style="text-align: center;">
+                                    <div style="width: 80px; height: 80px; background: var(--info); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <h4>Elena Valdez</h4>
+                                    <p><strong>Secretary</strong></p>
+                                    <p>Administrative Officer</p>
+                                    <p>Contact: 09444555666</p>
+                                    <button class="action-btn btn-edit mt-2">Edit</button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div style="text-align: center;">
+                                    <div style="width: 80px; height: 80px; background: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <h4>Carlos Mendez</h4>
+                                    <p><strong>Treasurer</strong></p>
+                                    <p>Financial Officer</p>
+                                    <p>Contact: 09777888999</p>
+                                    <button class="action-btn btn-edit mt-2">Edit</button>
+                                </div>
+                            </div>
+
+                            <div class="service-card">
+                                <div style="text-align: center;">
+                                    <div style="width: 80px; height: 80px; background: var(--warning); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: white; font-size: 2rem;">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <h4>Linda Francisco</h4>
+                                    <p><strong>SK Chairperson</strong></p>
+                                    <p>Youth Affairs</p>
+                                    <p>Contact: 09000111222</p>
+                                    <button class="action-btn btn-edit mt-2">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="officials-add" class="officials-tab">
+                        <div class="form-container">
+                            <h3>Add New Official</h3>
+                            <form id="add-official-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input type="text" id="official-first-name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input type="text" id="official-last-name" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Position</label>
+                                        <select id="official-position" required>
+                                            <option value="">Select Position</option>
+                                            <option value="captain">Barangay Captain</option>
+                                            <option value="kagawad">Kagawad</option>
+                                            <option value="secretary">Secretary</option>
+                                            <option value="treasurer">Treasurer</option>
+                                            <option value="sk-chairperson">SK Chairperson</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Committee</label>
+                                        <select id="official-committee">
+                                            <option value="">Select Committee</option>
+                                            <option value="health">Health & Sanitation</option>
+                                            <option value="peace">Peace & Order</option>
+                                            <option value="education">Education</option>
+                                            <option value="environment">Environment</option>
+                                            <option value="sports">Sports & Recreation</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                           
+                                </form>
+                           
+                                    
+                              <!-- Reports Page -->
+    <div id="reports" class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Reports & Analytics</h2>
+                <p class="section-subtitle">Generate and view barangay reports and analytics</p>
+            </div>
+            <div class="dashboard-grid">
+                <div class="dashboard-sidebar">
+                    <ul class="sidebar-nav">
+                        <li><a href="#" class="active" onclick="showReportsTab('summary')"><i class="fas fa-chart-bar"></i>Summary</a></li>
+                        <li><a href="#" onclick="showReportsTab('demographics')"><i class="fas fa-users"></i>Demographics</a></li>
+                        <li><a href="#" onclick="showReportsTab('certificates')"><i class="fas fa-file-alt"></i>Certificates</a></li>
+                        <li><a href="#" onclick="showReportsTab('custom')"><i class="fas fa-cogs"></i>Custom Report</a></li>
+                    </ul>
+                </div>
+                <div class="dashboard-content">
+                    <div id="reports-summary" class="reports-tab active">
+                        <h3>Barangay Summary Report</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <i class="fas fa-users"></i>
+                                <div class="stat-value">1,250</div>
+                                <div class="stat-label">Total Residents</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-certificate"></i>
+                                <div class="stat-value">450</div>
+                                <div class="stat-label">Certificates Issued</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-user-tie"></i>
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Officials</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="reports-demographics" class="reports-tab">
+                        <h3>Demographics Report</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <i class="fas fa-male"></i>
+                                <div class="stat-value">625</div>
+                                <div class="stat-label">Male</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-female"></i>
+                                <div class="stat-value">625</div>
+                                <div class="stat-label">Female</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-child"></i>
+                                <div class="stat-value">285</div>
+                                <div class="stat-label">Minors</div>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-birthday-cake"></i>
+                                <div class="stat-value">32</div>
+                                <div class="stat-label">Average Age</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="reports-certificates" class="reports-tab">
+                        <h3>Certificates Report</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Issued</th>
+                                    <th>Valid</th>
+                                    <th>Expired</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Barangay Clearance</td>
+                                    <td>200</td>
+                                    <td>180</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>Residency Certificate</td>
+                                    <td>120</td>
+                                    <td>115</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>Indigency Certificate</td>
+                                    <td>80</td>
+                                    <td>78</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>Business Permit</td>
+                                    <td>50</td>
+                                    <td>48</td>
+                                    <td>2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="reports-custom" class="reports-tab">
+                        <h3>Custom Report Generator</h3>
+                        <form id="custom-report-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Report Type</label>
+                                    <select id="custom-report-type" required>
+                                        <option value="">Select Report</option>
+                                        <option value="residents">Residents</option>
+                                        <option value="certificates">Certificates</option>
+                                        <option value="officials">Officials</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Date Range</label>
+                                    <input type="date" id="custom-report-from"> to
+                                    <input type="date" id="custom-report-to">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary mt-2">
+                                <i class="fas fa-file-alt"></i>
+                                Generate Report
+                            </button>
+                        </form>
+                        <div id="custom-report-result" class="mt-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Page -->
+    <div id="settings" class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">System Settings</h2>
+                <p class="section-subtitle">Configure barangay system preferences and user accounts</p>
+            </div>
+            <div class="dashboard-grid">
+                <div class="dashboard-sidebar">
+                    <ul class="sidebar-nav">
+                        <li><a href="#" class="active" onclick="showSettingsTab('profile')"><i class="fas fa-user-cog"></i>Profile</a></li>
+                        <li><a href="#" onclick="showSettingsTab('accounts')"><i class="fas fa-users-cog"></i>User Accounts</a></li>
+                        <li><a href="#" onclick="showSettingsTab('barangay')"><i class="fas fa-landmark"></i>Barangay Info</a></li>
+                        <li><a href="#" onclick="showSettingsTab('backup')"><i class="fas fa-database"></i>Backup & Restore</a></li>
+                    </ul>
+                </div>
+                <div class="dashboard-content">
+                    <div id="settings-profile" class="settings-tab active">
+                        <h3>My Profile</h3>
+                        <form id="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" id="profile-name" value="Juan Dela Cruz">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" id="profile-email" value="juan@email.com">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" id="profile-username" value="juandelacruz">
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" id="profile-password" value="password123">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary mt-2">
+                                <i class="fas fa-save"></i>
+                                Save Changes
+                            </button>
+                        </form>
+                    </div>
+                    <div id="settings-accounts" class="settings-tab">
+                        <h3>User Accounts</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>juandelacruz</td>
+                                    <td>Admin</td>
+                                    <td><span style="color: var(--success);">Active</span></td>
+                                    <td>
+                                        <button class="action-btn btn-edit">Edit</button>
+                                        <button class="action-btn btn-delete">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>mariasantos</td>
+                                    <td>Staff</td>
+                                    <td><span style="color: var(--success);">Active</span></td>
+                                    <td>
+                                        <button class="action-btn btn-edit">Edit</button>
+                                        <button class="action-btn btn-delete">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>pedroreyes</td>
+                                    <td>Staff</td>
+                                    <td><span style="color: var(--danger);">Inactive</span></td>
+                                    <td>
+                                        <button class="action-btn btn-edit">Edit</button>
+                                        <button class="action-btn btn-delete">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn-primary mt-2">
+                            <i class="fas fa-user-plus"></i>
+                            Add User
+                        </button>
+                    </div>
+                    <div id="settings-barangay" class="settings-tab">
+                        <h3>Barangay Information</h3>
+                        <form id="barangay-info-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Barangay Name</label>
+                                    <input type="text" id="barangay-name" value="Barangay Maloco">
+                                </div>
+                                <div class="form-group">
+                                    <label>Municipality/City</label>
+                                    <input type="text" id="barangay-city" value="Ibajay">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Province</label>
+                                    <input type="text" id="barangay-province" value="Aklan">
+                                </div>
+                                <div class="form-group">
+                                    <label>Region</label>
+                                    <input type="text" id="barangay-region" value="VI - Western Visayas">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Address</label>
+                                <textarea id="barangay-address" rows="2">Purok 4, Maloco, Ibajay, Aklan</textarea>
+                            </div>
+                            <button type="submit" class="btn-primary mt-2">
+                                <i class="fas fa-save"></i>
+                                Save Info
+                            </button>
+                        </form>
+                    </div>
+                    <div id="settings-backup" class="settings-tab">
+                        <h3>Backup & Restore</h3>
+                        <div class="form-group">
+                            <label>Backup Data</label>
+                            <button class="btn-primary"><i class="fas fa-download"></i> Download Backup</button>
+                        </div>
+                        <div class="form-group">
+                            <label>Restore Data</label>
+                            <input type="file" id="restore-file" accept=".json,.zip">
+                            <button class="btn-primary mt-2"><i class="fas fa-upload"></i> Restore</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Barangay Management System</h3>
+                    <p>Empowering digital governance for every barangay. Secure, efficient, and community-focused.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#" onclick="showPage('home')">Home</a></p>
+                    <p><a href="#" onclick="showPage('residents')">Residents</a></p>
+                    <p><a href="#" onclick="showPage('certificates')">Certificates</a></p>
+                    <p><a href="#" onclick="showPage('officials')">Officials</a></p>
+                    <p><a href="#" onclick="showPage('reports')">Reports</a></p>
+                    <p><a href="#" onclick="showPage('settings')">Settings</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Purok 4, Maloco, Ibajay, Aklan</p>
+                    <p><i class="fas fa-envelope"></i> barangayms@email.com</p>
+                    <p><i class="fas fa-phone"></i> +63 912 345 6789</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2024 Barangay Management System. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts (add your JS logic for tab switching, etc.) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // AOS init
+        AOS.init({ duration: 1000, once: true, offset: 100 });
+
+        // Hamburger menu
+        function toggleMenu() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        }
+
+        // Page navigation
+        function showPage(page) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+            document.querySelector('.nav-menu').classList.remove('active');
+        }
+
+        // Residents tabs
+        function showResidentsTab(tab) {
+            document.querySelectorAll('.residents-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('residents-' + tab).classList.add('active');
+            document.querySelectorAll('#residents .sidebar-nav a').forEach(a => a.classList.remove('active'));
+            document.querySelector(`#residents .sidebar-nav a[onclick*="${tab}"]`).classList.add('active');
+        }
+
+        // Certificates tabs
+        function showCertificateTab(tab) {
+            document.querySelectorAll('.certificate-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('certificate-' + tab).classList.add('active');
+            document.querySelectorAll('#certificates .sidebar-nav a').forEach(a => a.classList.remove('active'));
+            document.querySelector(`#certificates .sidebar-nav a[onclick*="${tab}"]`).classList.add('active');
+        }
+
+        // Officials tabs
+        function showOfficialsTab(tab) {
+            document.querySelectorAll('.officials-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('officials-' + tab).classList.add('active');
+            document.querySelectorAll('#officials .sidebar-nav a').forEach(a => a.classList.remove('active'));
+            document.querySelector(`#officials .sidebar-nav a[onclick*="${tab}"]`).classList.add('active');
+        }
+
+        // Reports tabs
+        function showReportsTab(tab) {
+            document.querySelectorAll('.reports-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('reports-' + tab).classList.add('active');
+            document.querySelectorAll('#reports .sidebar-nav a').forEach(a => a.classList.remove('active'));
+            document.querySelector(`#reports .sidebar-nav a[onclick*="${tab}"]`).classList.add('active');
+        }
+
+        // Settings tabs
+        function showSettingsTab(tab) {
+            document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('settings-' + tab).classList.add('active');
+            document.querySelectorAll('#settings .sidebar-nav a').forEach(a => a.classList.remove('active'));
+            document.querySelector(`#settings .sidebar-nav a[onclick*="${tab}"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

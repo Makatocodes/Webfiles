@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Portfolio Showcase</title>
+    <!-- Google Fonts for INTRO-like style (Montserrat as a close alternative) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, .intro-font {
+            font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
+            letter-spacing: 1px;
+        }
+
+        body {
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            height: 100vh;
+            position: relative;
+        }
+
+        .poster-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+            flex-direction: column;
+        }
+
+        /* Animated background elements */
+        .tech-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .circuit-pattern {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(45deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(-45deg, rgba(138, 43, 226, 0.1) 1px, transparent 1px),
+                radial-gradient(circle at 20% 80%, rgba(0, 191, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.2) 0%, transparent 50%);
+            background-size: 50px 50px, 50px 50px, 300px 300px, 300px 300px;
+            animation: circuitFlow 20s linear infinite;
+        }
+
+        @keyframes circuitFlow {
+            0% { transform: translate(-50px, -50px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00bfff;
+            border-radius: 50%;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) scale(1); opacity: 0; }
+        }
+
+        .geometric-shape {
+            position: absolute;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            animation: rotate 15s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .wireframe-box {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: -5s;
+        }
+
+        .wireframe-triangle {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 86px solid rgba(138, 43, 226, 0.3);
+            top: 70%;
+            right: 15%;
+            animation-delay: -10s;
+        }
+
+        /* Laptop mockup */
+        .laptop-container {
+            position: relative;
+            z-index: 10;
+            transform: rotateY(-15deg) rotateX(5deg);
+            filter: drop-shadow(0 20px 40px rgba(0, 191, 255, 0.3));
+            margin-top: 40px;
+        }
+
+        .laptop {
+            width: 600px;
+            height: 380px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .laptop-base {
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(135deg, #2c2c54, #40407a);
+            border-radius: 0 0 20px 20px;
+            position: absolute;
+            bottom: 0;
+            transform: rotateX(90deg) translateZ(10px);
+        }
+
+        .laptop-screen {
+            width: 100%;
+            height: 360px;
+            background: linear-gradient(135deg, #2c2c54, #40407a);
+            border-radius: 20px;
+            position: relative;
+            border: 8px solid #1a1a2e;
+            box-shadow: 
+                0 0 20px rgba(0, 191, 255, 0.4),
+                inset 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .screen-content {
+            width: calc(100% - 40px);
+            height: calc(100% - 40px);
+            margin: 20px;
+            background: #111;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Website interface mockup (not used anymore) */
+        .website-mockup {
+            display: none;
+        }
+
+        /* Floating UI elements */
+        .floating-ui {
+            position: absolute;
+            z-index: 8;
+        }
+
+        .ui-element {
+            background: rgba(0, 191, 255, 0.1);
+            border: 1px solid rgba(0, 191, 255, 0.3);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            color: #00bfff;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            animation: floatUpDown 4s ease-in-out infinite;
+        }
+
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .ui-element:nth-child(1) {
+            top: 20%;
+            right: 20%;
+            animation-delay: -1s;
+        }
+
+        .ui-element:nth-child(2) {
+            bottom: 30%;
+            left: 15%;
+            animation-delay: -2s;
+        }
+
+        .ui-element:nth-child(3) {
+            top: 60%;
+            right: 10%;
+            animation-delay: -3s;
+        }
+
+        /* Code streams */
+        .code-stream {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            color: rgba(0, 255, 255, 0.4);
+            font-size: 10px;
+            white-space: nowrap;
+            animation: streamFlow 15s linear infinite;
+            z-index: 2;
+        }
+
+        @keyframes streamFlow {
+            0% { transform: translateX(100vw); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(-100px); opacity: 0; }
+        }
+
+        .stream-1 { top: 15%; animation-delay: -2s; }
+        .stream-2 { top: 35%; animation-delay: -7s; }
+        .stream-3 { top: 75%; animation-delay: -12s; }
+
+        /* Holographic effects */
+        .holo-ring {
+            position: absolute;
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            border-radius: 50%;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .ring-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            animation-delay: -1s;
+        }
+
+        .ring-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            right: 8%;
+            animation-delay: -2s;
+        }
+
+        /* Light rays */
+        .light-ray {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, rgba(0, 255, 255, 0.8), transparent);
+            animation: rayGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes rayGlow {
+            0% { opacity: 0.3; transform: scaleY(0.5); }
+            100% { opacity: 1; transform: scaleY(1); }
+        }
+
+        .ray-1 { top: 25%; left: 30%; animation-delay: -0.5s; }
+        .ray-2 { top: 45%; right: 25%; animation-delay: -1s; }
+        .ray-3 { bottom: 30%; left: 70%; animation-delay: -1.5s; }
+
+        /* Reflection */
+        .laptop-reflection {
+            position: absolute;
+            bottom: -200px;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to top, transparent 0%, rgba(0, 191, 255, 0.1) 100%);
+            transform: scaleY(-1);
+            opacity: 0.3;
+            z-index: 5;
+        }
+
+        /* Glow effects */
+        .glow-accent {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 191, 255, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            animation: glowPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        /* Website name below laptop */
+        .website-title {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 2.5rem;
+            font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 2px 16px #8a2be2, 0 1px 0 #e100ff;
+            letter-spacing: 2px;
+        }
+
+        /* Social icons row */
+        .social-row {
+            margin-top: 18px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', 'Arial Black', Arial, sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #fff;
+            text-decoration: none;
+            background: rgba(0,191,255,0.10);
+            border-radius: 8px;
+            padding: 6px 16px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .social-link:hover {
+            background: rgba(138,43,226,0.18);
+            color: #00bfff;
+        }
+        .social-icon {
+            width: 28px;
+            height: 28px;
+            display: inline-block;
+        }
+        /* Responsive for mobile */
+        @media (max-width: 700px) {
+            .laptop { width: 95vw; height: 60vw; max-width: 99vw; }
+            .website-title { font-size: 1.3rem; }
+            .social-row { gap: 18px; }
+            .social-link { font-size: 0.9rem; padding: 5px 8px; }
+            .social-icon { width: 20px; height: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster-container">
+        <!-- Tech background elements -->
+        <div class="tech-background">
+            <div class="circuit-pattern"></div>
+            <div class="geometric-shape wireframe-box"></div>
+            <div class="geometric-shape wireframe-triangle"></div>
+            <div class="holo-ring ring-1"></div>
+            <div class="holo-ring ring-2"></div>
+            <div class="glow-accent"></div>
+            
+            <!-- Light rays -->
+            <div class="light-ray ray-1"></div>
+            <div class="light-ray ray-2"></div>
+            <div class="light-ray ray-3"></div>
+            
+            <!-- Code streams -->
+            <div class="code-stream stream-1">
+                &lt;div class="website"&gt; &lt;header&gt; &lt;nav&gt; &lt;/nav&gt; &lt;/header&gt; &lt;main&gt;
+            </div>
+            <div class="code-stream stream-2">
+                function createWebsite() { return new Portfolio(); } // Modern web development
+            </div>
+            <div class="code-stream stream-3">
+                const tech = ['React', 'Node.js', 'CSS3', 'HTML5']; // Latest technologies
+            </div>
+        </div>
+
+        <!-- Main laptop mockup -->
+        <div class="laptop-container">
+            <div class="laptop">
+                <div class="laptop-screen">
+                    <div class="screen-content">
+                        <!-- Replace website-mockup with an image -->
+                        <img src="elect.jpg"
+                             alt="Website Screenshot"
+                             style="width:100%;height:100%;object-fit:cover;border-radius:10px;box-shadow:0 0 24px #00bfff55;">
+                    </div>
+                </div>
+                <div class="laptop-base"></div>
+            </div>
+            <div class="laptop-reflection"></div>
+        </div>
+
+        <!-- Website name below laptop -->
+        <div class="website-title intro-font">
+     ELECTRIPRO – Electrician Services Website
+        </div>
+        <!-- Social icons and usernames -->
+        <div class="social-row">
+            <a class="social-link" href="https://facebook.com/yourusername" target="_blank">
+                <span class="social-icon">
+                    <!-- Facebook SVG -->
+                    <svg fill="#1877f3" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M22.675 16.009h-4.009v10.009h-4.009v-10.009h-2.004v-3.341h2.004v-2.004c0-2.004 1.002-4.009 4.009-4.009l3.007.001v3.341h-2.004c-.334 0-.668.334-.668.668v2.003h2.672l-.334 3.341z"/></svg>
+                </span>
+                @limuelganal2003
+            </a>
+            <a class="social-link" href="https://instagram.com/yourusername" target="_blank">
+                <span class="social-icon">
+                    <!-- Instagram SVG -->
+                    <svg fill="#e1306c" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M16 10.8a5.2 5.2 0 1 0 0 10.4 5.2 5.2 0 0 0 0-10.4zm0 8.6a3.4 3.4 0 1 1 0-6.8 3.4 3.4 0 0 1 0 6.8zm6.4-8.8a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0zm3.4 1.2c-.1-2.1-.6-3.9-2.1-5.4s-3.3-2-5.4-2.1c-2.1-.1-8.3-.1-10.4 0-2.1.1-3.9.6-5.4 2.1s-2 3.3-2.1 5.4c-.1 2.1-.1 8.3 0 10.4.1 2.1.6 3.9 2.1 5.4s3.3 2 5.4 2.1c2.1.1 8.3.1 10.4 0 2.1-.1 3.9-.6 5.4-2.1s2-3.3 2.1-5.4c.1-2.1.1-8.3 0-10.4zm-2.2 12.6c-.4 1-1.2 1.8-2.2 2.2-1.5.6-5.1.5-6.2.5s-4.7.1-6.2-.5c-1-.4-1.8-1.2-2.2-2.2-.6-1.5-.5-5.1-.5-6.2s-.1-4.7.5-6.2c.4-1 1.2-1.8 2.2-2.2 1.5-.6 5.1-.5 6.2-.5s4.7-.1 6.2.5c1 .4 1.8 1.2 2.2 2.2.6 1.5.5 5.1.5 6.2s.1 4.7-.5 6.2z"/></svg>
+                </span>
+                @limuelweb
+            </a>
+            <a class="social-link" href="https://tiktok.com/@yourusername" target="_blank">
+                <span class="social-icon">
+                    <!-- TikTok SVG -->
+                    <svg fill="#000" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M22.5 13.1c-1.2 0-2.2-.4-3-1.1v6.2c0 2.6-2.1 4.7-4.7 4.7s-4.7-2.1-4.7-4.7 2.1-4.7 4.7-4.7c.2 0 .4 0 .6.1v2.1c-.2-.1-.4-.1-.6-.1-1.4 0-2.6 1.2-2.6 2.6s1.2 2.6 2.6 2.6 2.6-1.2 2.6-2.6v-10.2h2.1c0 1.2 1 2.2 2.2 2.2h.5v2.2h-.5z" fill="#010101"/><path d="M22.5 13.1v-2.2h-.5c-1.2 0-2.2-1-2.2-2.2h-2.1v10.2c0 1.4-1.2 2.6-2.6 2.6s-2.6-1.2-2.6-2.6 1.2-2.6 2.6-2.6c.2 0 .4 0 .6.1v-2.1c-.2-.1-.4-.1-.6-.1-2.6 0-4.7 2.1-4.7 4.7s2.1 4.7 4.7 4.7 4.7-2.1 4.7-4.7v-6.2c.8.7 1.8 1.1 3 1.1z" fill="#25f4ee"/><path d="M22.5 13.1v-2.2h-.5c-1.2 0-2.2-1-2.2-2.2h-2.1v10.2c0 1.4-1.2 2.6-2.6 2.6s-2.6-1.2-2.6-2.6 1.2-2.6 2.6-2.6c.2 0 .4 0 .6.1v-2.1c-.2-.1-.4-.1-.6-.1-2.6 0-4.7 2.1-4.7 4.7s2.1 4.7 4.7 4.7 4.7-2.1 4.7-4.7v-6.2c.8.7 1.8 1.1 3 1.1z" fill="#fe2c55"/></svg>
+                </span>
+                @limuelganal
+            </a>
+        </div>
+
+        <!-- Floating UI elements -->
+        <div class="floating-ui">
+            <div class="ui-element">
+                { responsive: true }
+            </div>
+            <div class="ui-element">
+                &lt;modern-design/&gt;
+            </div>
+            <div class="ui-element">
+                API: connected
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create dynamic particles
+        function createParticles() {
+            const container = document.querySelector('.tech-background');
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (3 + Math.random() * 6) + 's';
+                
+                // Random colors
+                const colors = ['#00bfff', '#8a2be2', '#00ffff', '#ff00ff'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+
+        // Add mouse interaction
+        document.addEventListener('mousemove', (e) => {
+            const laptop = document.querySelector('.laptop-container');
+            const rect = window.innerWidth / 2;
+            const x = (e.clientX - rect) / rect;
+            const y = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+            
+            laptop.style.transform = `
+                rotateY(${-15 + x * 5}deg) 
+                rotateX(${5 + y * 3}deg) 
+                translateZ(${Math.abs(x) * 20}px)
+            `;
+        });
+
+        // Animate floating elements on load
+        setTimeout(() => {
+            const floatingElements = document.querySelectorAll('.ui-element');
+            floatingElements.forEach((el, index) => {
+                el.style.animationDelay = `-${index}s`;
+            });
+        }, 1000);
+    </script>
+</body>
+</html>

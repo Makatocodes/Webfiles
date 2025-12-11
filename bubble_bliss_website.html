@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Bliss - Premium Milk Tea & Bubble Tea | Fresh, Authentic, Delicious</title>
+    <meta name="description" content="Bubble Bliss offers premium milk tea and bubble tea with fresh ingredients. Experience authentic flavors, customizable drinks, and exceptional quality at our modern tea shop.">
+    <meta name="keywords" content="bubble tea, milk tea, boba tea, premium tea, fresh ingredients, authentic flavors, tea shop, beverages, drinks">
+    <meta name="author" content="Bubble Bliss">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://bubblebliss.com">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Bubble Bliss - Premium Milk Tea & Bubble Tea">
+    <meta property="og:description" content="Experience authentic flavors and premium quality at Bubble Bliss. Fresh ingredients, customizable drinks, exceptional service.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bubblebliss.com">
+    <meta property="og:image" content="https://bubblebliss.com/og-image.jpg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bubble Bliss - Premium Milk Tea & Bubble Tea">
+    <meta name="twitter:description" content="Experience authentic flavors and premium quality at Bubble Bliss.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧋</text></svg>">
+    
+    <!-- CSS Frameworks -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Bubble Bliss",
+        "image": "https://bubblebliss.com/logo.jpg",
+        "description": "Premium milk tea and bubble tea shop with fresh ingredients and authentic flavors",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 Tea Street",
+            "addressLocality": "Quezon City",
+            "addressRegion": "Metro Manila",
+            "postalCode": "1100",
+            "addressCountry": "PH"
+        },
+        "telephone": "+63-2-123-4567",
+        "url": "https://bubblebliss.com",
+        "servesCuisine": "Beverages",
+        "priceRange": "₱₱",
+        "openingHours": "Mo-Su 10:00-22:00"
+    }
+    </script>
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warm-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            overflow-x: hidden;
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(255, 255, 255, 0.3);
+            border-top: 6px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Glass Morphism */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+        }
+        
+        /* Animated Background */
+        .animated-bg {
+            background: var(--primary-gradient);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="60" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="90" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        
+        /* Navbar */
+        .navbar {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Logo Animation */
+        .logo {
+            font-size: 2rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--primary-gradient);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom center;
+            background-size: cover;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid white;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: white; }
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            background: var(--secondary-gradient);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-primary:active::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Menu Items */
+        .menu-item {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gradient);
+            opacity: 0.9;
+            transition: left 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .menu-item:hover::before {
+            left: 0;
+        }
+        
+        /* Price Counter Animation */
+        .price-counter {
+            font-weight: bold;
+            color: #e91e63;
+        }
+        
+        /* Parallax */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        /* Form Styling */
+        .form-input {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            outline: none;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 80px 20px 40px;
+            }
+            
+            .typewriter {
+                font-size: 1.5rem;
+            }
+            
+            .card {
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+        
+        /* Social Icons */
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gradient);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="logo text-2xl font-bold">
+                        🧋 <span class="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Bubble Bliss</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-link text-gray-800 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#menu" class="nav-link text-gray-800 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Menu</a>
+                        <a href="#about" class="nav-link text-gray-800 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#contact" class="nav-link text-gray-800 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-800 hover:text-purple-600 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu md:hidden fixed top-0 left-0 w-full h-full bg-purple-600 z-40" id="mobileMenu">
+            <div class="flex flex-col items-center justify-center h-full space-y-8">
+                <a href="#home" class="mobile-nav-link text-white text-xl font-medium">Home</a>
+                <a href="#menu" class="mobile-nav-link text-white text-xl font-medium">Menu</a>
+                <a href="#about" class="mobile-nav-link text-white text-xl font-medium">About</a>
+                <a href="#contact" class="mobile-nav-link text-white text-xl font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero animated-bg">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between text-white relative z-10">
+            <!-- Left: Text -->
+            <div class="w-full md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+                <h1 class="typewriter text-4xl md:text-6xl font-bold mb-6">Welcome to Bubble Bliss</h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">Premium Milk Tea & Bubble Tea Experience</p>
+                <div class="space-x-4">
+                    <button class="btn-primary">Order Now</button>
+                    <button class="btn-primary" style="background: var(--accent-gradient);">View Menu</button>
+                </div>
+            </div>
+            <!-- Right: Hero Image -->
+            <div class="w-full md:w-1/2 flex justify-center md:justify-end">
+                <img src="milk.png" alt="Bubble Bliss Milk Tea" class="rounded-3xl shadow-2xl max-w-xs md:max-w-md border-8 border-white border-opacity-30 bg-white bg-opacity-10" style="object-fit:cover;">
+            </div>
+        </div>
+    </section>
+
+  <!-- Menu Section -->
+    <section id="menu" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Signature Menu</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">Discover our handcrafted beverages made with the finest ingredients and authentic flavors</p>
+            </div>
+            
+             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Menu Item 1 -->
+                <div class="card menu-item" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="h-48 bg-gradient-to-br from-pink-400 to-purple-500 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80" alt="Classic Milk Tea" class="object-cover h-full w-full absolute inset-0 opacity-80">
+                        <div class="absolute inset-0 flex items-center justify-center text-6xl z-10">🧋</div>
+                        <div class="absolute bottom-4 right-4 bg-white rounded-full w-16 h-16 flex items-center justify-center z-10">
+                            <span class="price-counter text-lg font-bold">₱149</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Classic Milk Tea</h3>
+                        <p class="text-gray-600 mb-4">Rich and creamy milk tea with chewy tapioca pearls</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">⭐ 4.9 (127 reviews)</span>
+                            <button class="text-purple-600 hover:text-purple-800 font-medium">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menu Item 2 -->
+                <div class="card menu-item" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-teal-500 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80" alt="Matcha Paradise" class="object-cover h-full w-full absolute inset-0 opacity-80">
+                        <div class="absolute inset-0 flex items-center justify-center text-6xl z-10">🍃</div>
+                        <div class="absolute bottom-4 right-4 bg-white rounded-full w-16 h-16 flex items-center justify-center z-10">
+                            <span class="price-counter text-lg font-bold">₱159</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Matcha Paradise</h3>
+                        <p class="text-gray-600 mb-4">Premium Japanese matcha with fresh milk and honey</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">⭐ 4.8 (94 reviews)</span>
+                            <button class="text-purple-600 hover:text-purple-800 font-medium">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                     <!-- Menu Item 6 -->
+                <div class="card menu-item" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-500 relative overflow-hidden flex items-center justify-center">
+                        <img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80" alt="Sakura Special" class="object-cover h-full w-full absolute inset-0 opacity-80">
+                        <div class="absolute inset-0 flex items-center justify-center text-6xl z-10">🌸</div>
+                        <div class="absolute bottom-4 right-4 bg-white rounded-full w-16 h-16 flex items-center justify-center z-10">
+                            <span class="price-counter text-lg font-bold">₱199</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Sakura Special</h3>
+                        <p class="text-gray-600 mb-4">Limited edition cherry blossom flavored tea with floral notes</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500">⭐ 5.0 (67 reviews)</span>
+                            <button class="text-purple-600 hover:text-purple-800 font-medium">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 parallax" style="background-image: linear-gradient(rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8)), url('data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 1440 320&quot;><path fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.1&quot; d=&quot;M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z&quot;></path></svg>');">
+        <div class="container mx-auto px-4 text-white">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-4xl font-bold mb-8" data-aos="fade-up">About Bubble Bliss</h2>
+                <p class="text-xl mb-12 leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+                    Since 2020, Bubble Bliss has been crafting the perfect bubble tea experience with authentic flavors, premium ingredients, and innovative recipes. Our passion for quality and customer satisfaction drives us to create memorable moments with every sip.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+                    <div class="glass p-8 text-center" data-aos="flip-left" data-aos-delay="100">
+                        <div class="text-4xl mb-4">🌱</div>
+                        <h3 class="text-xl font-bold mb-4">Fresh Ingredients</h3>
+                        <p class="text-sm opacity-90">We source only the finest, freshest ingredients to ensure exceptional quality in every drink.</p>
+                    </div>
+                    
+                    <div class="glass p-8 text-center" data-aos="flip-left" data-aos-delay="200">
+                        <div class="text-4xl mb-4">🎨</div>
+                        <h3 class="text-xl font-bold mb-4">Customizable</h3>
+                        <p class="text-sm opacity-90">Personalize your drink with various toppings, sweetness levels, and ice preferences.</p>
+                    </div>
+                    
+                    <div class="glass p-8 text-center" data-aos="flip-left" data-aos-delay="300">
+                        <div class="text-4xl mb-4">⚡</div>
+                        <h3 class="text-xl font-bold mb-4">Fast Service</h3>
+                        <p class="text-sm opacity-90">Quick preparation without compromising quality. Your perfect drink, ready in minutes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 animated-bg">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16 text-white">
+                    <h2 class="text-4xl font-bold mb-4" data-aos="fade-up">Get In Touch</h2>
+                    <p class="text-xl opacity-90" data-aos="fade-up" data-aos-delay="200">We'd love to hear from you! Reach out for orders, feedback, or just to say hi.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Contact Form -->
+                    <div class="glass p-8" data-aos="fade-right">
+                        <h3 class="text-2xl font-bold text-white mb-6">Send us a Message</h3>
+                        <form id="contactForm" class="space-y-6">
+                            <div>
+                                <input type="text" name="name" placeholder="Your Name" class="form-input w-full" required>
+                            </div>
+                            <div>
+                                <input type="email" name="email" placeholder="Your Email" class="form-input w-full" required>
+                            </div>
+                            <div>
+                                <input type="tel" name="phone" placeholder="Phone Number" class="form-input w-full">
+                            </div>
+                            <div>
+                                <textarea name="message" rows="4" placeholder="Your Message" class="form-input w-full resize-none" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary w-full">Send Message</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="text-white" data-aos="fade-left">
+                        <h3 class="text-2xl font-bold mb-6">Visit Our Store</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-white bg-opacity-20 p-3 rounded-full">
+                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-2">Address</h4>
+                                    <p class="opacity-90">123 Tea Street, Quezon City<br>Metro Manila, Philippines 1100</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-white bg-opacity-20 p-3 rounded-full">
+                                    <i class="fas fa-phone text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-2">Phone</h4>
+                                    <p class="opacity-90">+63 2 123 4567</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-white bg-opacity-20 p-3 rounded-full">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-2">Email</h4>
+                                    <p class="opacity-90">hello@bubblebliss.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-white bg-opacity-20 p-3 rounded-full">
+                                    <i class="fas fa-clock text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-2">Hours</h4>
+                                    <p class="opacity-90">Mon - Sun: 10:00 AM - 10:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Media -->
+                        <div class="mt-8">
+                            <h4 class="font-bold mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-12 text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="logo text-2xl font-bold mb-4">
+                        🧋 <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Bubble Bliss</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Crafting the perfect bubble tea experience since 2020. Premium quality, authentic flavors, exceptional service.</p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="social-icon text-sm w-8 h-8">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon text-sm w-8 h-8">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon text-sm w-8 h-8">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#home" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#menu" class="hover:text-white transition-colors">Menu</a></li>
+                        <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Services</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Online Ordering</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Delivery</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Catering</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Gift Cards</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-4">Contact Info</h4>
+                    <div class="space-y-2 text-gray-300">
+                        <p><i class="fas fa-map-marker-alt mr-2"></i>123 Tea Street, Quezon City</p>
+                        <p><i class="fas fa-phone mr-2"></i>+63 2 123 4567</p>
+                        <p><i class="fas fa-envelope mr-2"></i>hello@bubblebliss.com</p>
+                        <p><i class="fas fa-clock mr-2"></i>Mon-Sun: 10AM-10PM</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-600 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Bubble Bliss. All rights reserved. | Made with ❤️ in the Philippines</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Frameworks -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        // Initialize AOS (Animate On Scroll)
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Loading Screen
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-times');
+            } else {
+                icon.classList.replace('fa-times', 'fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                mobileMenu.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+                
+                const targetId = link.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Price Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.price-counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent.replace('₱', ''));
+                let current = 0;
+                const increment = target / 30;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = '₱' + target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = '₱' + Math.floor(current);
+                    }
+                }, 50);
+            });
+        }
+
+        // Trigger counter animation when menu section is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        const menuSection = document.getElementById('menu');
+        if (menuSection) {
+            observer.observe(menuSection);
+        }
+
+        // Contact Form Handling
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert('Thank you for your message! We\'ll get back to you soon.');
+                contactForm.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero section animation
+        gsap.from('.hero h1', {
+            duration: 1.5,
+            y: 100,
+            opacity: 0,
+            ease: 'power3.out',
+            delay: 2
+        });
+
+        gsap.from('.hero p', {
+            duration: 1.5,
+            y: 50,
+            opacity: 0,
+            ease: 'power3.out',
+            delay: 2.3
+        });
+
+        gsap.from('.hero .space-x-4', {
+            duration: 1.5,
+            y: 50,
+            opacity: 0,
+            ease: 'power3.out',
+            delay: 2.6
+        });
+
+        // Menu cards stagger animation
+        gsap.from('.menu-item', {
+            duration: 0.8,
+            y: 100,
+            opacity: 0,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '#menu',
+                start: 'top 80%'
+            }
+        });
+
+        // Parallax effect for about section
+        gsap.to('#about', {
+            backgroundPositionY: '-50%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#about',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+
+        // Button ripple effect
+        document.querySelectorAll('.btn-primary').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple effect styles
+        const style = document.createElement('style');
+        style.textContent = `
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                pointer-events: none;
+            }
+            
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Intersection Observer for fade in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            fadeObserver.observe(el);
+        });
+
+        // Floating particles animation
+        function createFloatingParticles() {
+            const hero = document.querySelector('.hero');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = Math.random() * 6 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.background = 'rgba(255, 255, 255, 0.3)';
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.pointerEvents = 'none';
+                particle.style.animation = `float ${Math.random() * 10 + 10}s ease-in-out infinite`;
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                hero.appendChild(particle);
+            }
+        }
+
+        // Initialize floating particles
+        createFloatingParticles();
+
+        // Add scroll progress indicator
+        function addScrollProgress() {
+            const progressBar = document.createElement('div');
+            progressBar.style.position = 'fixed';
+            progressBar.style.top = '0';
+            progressBar.style.left = '0';
+            progressBar.style.width = '0';
+            progressBar.style.height = '3px';
+            progressBar.style.background = 'linear-gradient(90deg, #667eea, #764ba2)';
+            progressBar.style.zIndex = '9999';
+            progressBar.style.transition = 'width 0.1s ease';
+            document.body.appendChild(progressBar);
+
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                const maxHeight = document.body.scrollHeight - window.innerHeight;
+                const progress = (scrolled / maxHeight) * 100;
+                progressBar.style.width = progress + '%';
+            });
+        }
+
+        addScrollProgress();
+
+        // Add Easter egg - Konami code
+        let konamiCode = [];
+        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // Up Up Down Down Left Right Left Right B A
+
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.keyCode);
+            if (konamiCode.length > konamiSequence.length) {
+                konamiCode.shift();
+            }
+            if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
+                // Easter egg activated!
+                document.body.style.transform = 'rotate(360deg)';
+                document.body.style.transition = 'transform 2s ease';
+                setTimeout(() => {
+                    document.body.style.transform = '';
+                    alert('🎉 Konami Code activated! You found our secret! Enjoy 20% off your next order! 🧋');
+                }, 2000);
+                konamiCode = [];
+            }
+        });
+
+        console.log('🧋 Welcome to Bubble');
+    </script>
+</body>
+</html>
